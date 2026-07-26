@@ -24,6 +24,11 @@ def hash_password(password):
 
 def create_database():
     print(f"Creating database at: {DB_PATH} using schema: {SCHEMA_PATH}")
+    if os.path.exists(DB_PATH):
+        try:
+            os.remove(DB_PATH)
+        except Exception as e:
+            print(f"Warning: Could not remove existing database file: {e}")
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
     
