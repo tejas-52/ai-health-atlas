@@ -379,7 +379,8 @@ def main_app():
                                           mode="lines+markers",
                                           line=dict(color=color, width=3),
                                           marker=dict(size=8)))
-            fig1.update_layout(**LAYOUT, xaxis=dict(title="Year", dtick=1, **GRID),
+            fig1.update_layout(**LAYOUT, title=dict(text="Disease Prevalence Trends Over Time", font=dict(size=16, color="#ffffff")),
+                               xaxis=dict(title="Year", dtick=1, **GRID),
                                yaxis=dict(title="Rate (%)", **GRID))
             st.plotly_chart(fig1, use_container_width=True)
 
@@ -395,7 +396,8 @@ def main_app():
                                       orientation="h", marker_color="#0ea5e9"))
                 fig2.add_trace(go.Bar(y=by_d["district_name"], x=by_d["Smoking"], name="Smoking",
                                       orientation="h", marker_color="#f43f5e"))
-                fig2.update_layout(**LAYOUT, barmode="group",
+                fig2.update_layout(**LAYOUT, title=dict(text="Obesity vs Smoking Rate by District", font=dict(size=14, color="#ffffff")),
+                                   barmode="group",
                                    xaxis=dict(title="Rate (%)", **GRID),
                                    yaxis=dict(title=""))
                 st.plotly_chart(fig2, use_container_width=True)
@@ -412,7 +414,8 @@ def main_app():
                                   color_continuous_scale="Teal",
                                   labels={"income":"Avg Income (€)","life_exp":"Life Expectancy (yrs)"})
                 fig3.update_traces(textposition="top center")
-                fig3.update_layout(**LAYOUT, coloraxis_showscale=False,
+                fig3.update_layout(**LAYOUT, title=dict(text="Correlation: Life Expectancy vs Avg Income", font=dict(size=14, color="#ffffff")),
+                                   coloraxis_showscale=False,
                                    xaxis=dict(**GRID), yaxis=dict(**GRID))
                 st.plotly_chart(fig3, use_container_width=True)
 
@@ -441,8 +444,8 @@ def main_app():
                 labels={"emergency_response_time_min":"Response (min)",
                         "district_name":"District"}
             )
-            fig_map.update_layout(**LAYOUT)
-            fig_map.update_layout(margin=dict(t=0,b=0,l=0,r=0))
+            fig_map.update_layout(**LAYOUT, title=dict(text="GIS Distribution of Healthcare Assets", font=dict(size=16, color="#ffffff")))
+            fig_map.update_layout(margin=dict(t=50,b=0,l=0,r=0))
             st.plotly_chart(fig_map, use_container_width=True)
 
         # District metrics table
@@ -512,7 +515,8 @@ def main_app():
                 corr = corr_df.corr().round(2)
                 fig_heat = px.imshow(corr, text_auto=True, color_continuous_scale="RdBu",
                                      zmin=-1, zmax=1, aspect="auto")
-                fig_heat.update_layout(**LAYOUT, height=380,
+                fig_heat.update_layout(**LAYOUT, title=dict(text="Environment vs Health Correlation Matrix", font=dict(size=14, color="#ffffff")),
+                                       height=380,
                                        xaxis=dict(tickangle=-45),
                                        coloraxis_colorbar=dict(thickness=12))
                 st.plotly_chart(fig_heat, use_container_width=True)
@@ -533,7 +537,8 @@ def main_app():
                                     color_discrete_sequence=["#10b981","#0ea5e9","#f59e0b","#ec4899","#8b5cf6"],
                                     labels={"income":"Avg Income (€)","obesity":"Obesity Rate (%)"})
                 fig_cl.update_traces(textposition="top center", marker=dict(size=16))
-                fig_cl.update_layout(**LAYOUT, xaxis=dict(**GRID), yaxis=dict(**GRID))
+                fig_cl.update_layout(**LAYOUT, title=dict(text="K-Means Clustering: Income vs Obesity", font=dict(size=16, color="#ffffff")),
+                                     xaxis=dict(**GRID), yaxis=dict(**GRID))
                 st.plotly_chart(fig_cl, use_container_width=True)
             except ImportError:
                 st.info("scikit-learn not installed — install it to enable K-Means clustering.")
@@ -593,8 +598,9 @@ def main_app():
                         fill="toself", fillcolor="rgba(245,158,11,0.1)",
                         line=dict(width=0), name="95% CI"
                     ))
-                    fig_fc.update_layout(**LAYOUT, xaxis=dict(title="Year",dtick=1,**GRID),
-                                        yaxis=dict(title=fc_target_label,**GRID))
+                    fig_fc.update_layout(**LAYOUT, title=dict(text=f"Projections: {fc_target_label} in {fc_district} (2026–2030)", font=dict(size=16, color="#ffffff")),
+                                         xaxis=dict(title="Year",dtick=1,**GRID),
+                                         yaxis=dict(title=fc_target_label,**GRID))
                     st.plotly_chart(fig_fc, use_container_width=True)
 
                 # Anomaly Table
