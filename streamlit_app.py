@@ -591,7 +591,7 @@ def main_app():
                         x=list(future_x)+list(future_x[::-1]),
                         y=list(future_y+1.5*resid_std)+list((future_y-1.5*resid_std)[::-1]),
                         fill="toself", fillcolor="rgba(245,158,11,0.1)",
-                        line=dict(color="transparent"), name="95% CI"
+                        line=dict(width=0), name="95% CI"
                     ))
                     fig_fc.update_layout(**LAYOUT, xaxis=dict(title="Year",dtick=1,**GRID),
                                         yaxis=dict(title=fc_target_label,**GRID))
